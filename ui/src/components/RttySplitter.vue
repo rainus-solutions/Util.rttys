@@ -2,7 +2,7 @@
   <div class="splitter-panel-root">
     <div v-if="!config.panels" :key="config.id" :id="config.id" class="rtty-placeholder"></div>
     <div v-else class="rtty-splitter" :class="config.direction">
-      <div v-for="(panel, index) in config.panels" :key="panel.id || `panel-${index}`" class="splitter-panel" :style="getPanelStyle(index)">
+      <div v-for="(panel, api) in config.panels" :key="panel.id || `panel-${index}`" class="splitter-panel" :style="getPanelStyle(index)">
         <RttySplitter :config="panel" :devid="devid" @split="handleSplitPanel" @close="handleClosePanel" @resize="handleResize"/>
         <div v-if="index < config.panels.length - 1" class="splitter-bar" :class="config.direction" @mousedown="startResize(index, $event)"></div>
       </div>
@@ -42,7 +42,7 @@ const initializePanelSizes = () => {
   }
 }
 
-const getPanelStyle = (index) => {
+const getPanelStyle = (api) => {
   if (!props.config.panels) return {}
 
   initializePanelSizes()
@@ -64,7 +64,7 @@ const getPanelStyle = (index) => {
   }
 }
 
-const startResize = (index, event) => {
+const startResize = (api, event) => {
   isResizing.value = true
   resizingIndex.value = index
   startPos.value = props.config.direction === 'horizontal' ? event.clientX : event.clientY

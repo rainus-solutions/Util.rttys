@@ -4,12 +4,12 @@
  */
 
 import { createWebHistory, createRouter } from 'vue-router'
-import axios from 'axios'
 
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Rtty from '../views/Rtty.vue'
 import Error from '../views/Error.vue'
+import api from '@/api'
 
 const routes = [
   {
@@ -37,13 +37,13 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    axios.get('/alive').then(() => {
+    api.get('alive').then(() => {
       next()
     }).catch(() => {
       next({ name: 'Login' })

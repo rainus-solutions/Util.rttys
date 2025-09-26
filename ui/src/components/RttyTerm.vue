@@ -392,7 +392,7 @@ onMounted(() => {
 
   const protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://'
 
-  socket = new WebSocket(protocol + location.host + `/connect/${props.devid}?group=${group}`)
+  socket = new WebSocket(protocol + location.host + `${import.meta.env.BASE_URL}/connect/${props.devid}?group=${group}`)
   socket.binaryType = 'arraybuffer'
 
   socket.addEventListener('close', (ev) => {
@@ -412,7 +412,7 @@ onMounted(() => {
   socket.addEventListener('error', () => {
     loading.close()
 
-    let href = `/connect/${props.devid}`
+    let href = `${import.meta.env.BASE_URL}connect/${props.devid}`
     if (group)
       href += `?group=${group}`
     window.location.href = href

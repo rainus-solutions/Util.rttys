@@ -3,19 +3,26 @@ import vue from '@vitejs/plugin-vue'
 import eslint from '@nabla/vite-plugin-eslint'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import compression from 'vite-plugin-compression2'
+import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/websh/',
   plugins: [
     vue(),
     eslint(),
     compression({
       algorithms: ['gzip'],
-      deleteOriginalAssets: true,
+      deleteOriginalAssets: false,
       threshold: 10240
     }),
     vueI18n()
   ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   server: {
     proxy: {
       '/groups': {

@@ -57,7 +57,7 @@
 import { ref, reactive, computed, nextTick, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
+import api from '@/api'
 
 const { t } = useI18n()
 
@@ -155,7 +155,7 @@ const doCmd = () => {
           params: cmdData.params
         }
 
-        axios.post(`/cmd/${item.id}?group=${item.group}&wait=${cmdData.wait}`, data).then((response) => {
+        api.post(`cmd/${item.id}?group=${item.group}&wait=${cmdData.wait}`, data).then((response) => {
           if (cmdData.wait === 0) {
             cmdStatus.responses.push({
               err: 0,

@@ -1,6 +1,6 @@
 <template>
   <div ref="content" class="content" :style="{top: axis.y + 'px', left: axis.x + 'px'}" v-if="model">
-    <template v-for="(item, index) in menus" :key="item.name">
+    <template v-for="(item, api) in menus" :key="item.name">
       <a @click="onMenuClick(item.name)" :style="{'text-decoration': item.underline ? 'underline' : 'none'}">
         <span class="menu-caption">{{ item.caption || item.name }}</span>
         <span class="menu-shortcut" v-if="item.shortcut">{{ item.shortcut }}</span>

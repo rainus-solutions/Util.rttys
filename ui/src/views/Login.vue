@@ -19,7 +19,7 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
+import api from '@/api'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -34,7 +34,7 @@ const handleSubmit = () => {
     password: formValue.password
   }
 
-  axios.post('/signin', params).then(() => {
+  api.post('signin', params).then(() => {
     router.push('/')
   }).catch(() => {
     ElMessage.error(t('Signin Fail! password wrong.'))

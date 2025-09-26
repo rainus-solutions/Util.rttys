@@ -62,7 +62,7 @@ import { InternetExplorer as IEIcon } from '@vicons/fa'
 import { Terminal as TerminalIcon } from '@vicons/ionicons5'
 import RttyCmd from '../components/RttyCmd.vue'
 import RttyWeb from '../components/RttyWeb.vue'
-import axios from 'axios'
+import api from '@/api'
 
 const router = useRouter()
 
@@ -121,7 +121,7 @@ const handlePageChange = (page, size) => {
 }
 
 const handleLogout = () => {
-  axios.get('/signout').then(() => {
+  api.get('signout').then(() => {
     router.push('/login')
   })
 }
@@ -134,7 +134,7 @@ const handleSearch = () => {
 }
 
 const getGroups = () => {
-  axios.get('/groups').then(res => {
+  api.get('groups').then(res => {
     groups.value = res.data
     if (groups.value.indexOf(group.value) === -1)
       group.value = groups.value[0]
@@ -143,7 +143,7 @@ const getGroups = () => {
 }
 
 const getDevices = () => {
-  axios.get(`/devs?group=${group.value}`).then(res => {
+  api.get(`devs?group=${group.value}`).then(res => {
     loading.value = false
     devlists.value = res.data
     selection.value = []
@@ -161,7 +161,7 @@ const handleRefresh = () => {
 const handleSelection = (sel) => selection.value = sel
 
 const connectDevice = (devid) => {
-  let url = `/rtty/${devid}`
+  let url = `${import.meta.env.BASE_URL}rtty/${devid}`
   if (group.value)
     url += `?group=${group.value}`
   window.open(url)
